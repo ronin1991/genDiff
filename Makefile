@@ -9,4 +9,3 @@ lint:
 
 build:
 	npm run build
-	sudo npm link

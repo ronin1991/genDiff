@@ -3,6 +3,9 @@
   "files": [
     "dist"
   ],
+  "bin": {
+    "gendif": "dist/bin/gendiff.js"
+  },
   "version": "1.0.0",
   "description": "frontend-project-lvl2-ronin",
   "main": "index.js",
@@ -24,6 +27,9 @@
     "front, ronin"
   ],
   "dependencies": {
+    "commander": "^4.1.1"
+  },
+  "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
     "@babel/node": "^7.8.4",
