@@ -1,0 +1,39 @@
+{
+  "name": "frontend-project-lvl2",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.com/ronin1991/frontend-project-lvl2.svg?branch=master)](https://travis-ci.com/ronin1991/frontend-project-lvl2)",
+  "main": "index.js",
+  "scripts": {
+    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline"
+  },
+  "bin": {
+    "gendiff": "dist/bin/gendiff.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ronin1991/frontend-project-lvl2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ronin1991/frontend-project-lvl2/issues"
+  },
+  "homepage": "https://github.com/ronin1991/frontend-project-lvl2#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.20.1"
+  },
+  "dependencies": {
+    "commander": "^4.1.1"
+  }
+}
