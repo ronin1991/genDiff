@@ -7,4 +7,3 @@ publish:
 
 lint:
 	npx eslint .
-© 2020 GitHub, Inc.
