@@ -1,4 +1,4 @@
-import fileParseToString from './utils';
+import { fileParseToString } from './utils';
 
 const path = require('path');
 const _ = require('lodash');
