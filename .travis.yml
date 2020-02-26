@@ -5,7 +5,7 @@ node_js:
 
 env:
   global:
-    - CC_TEST_REPORTER_ID=<4de39734c35005a83d5dcd2a503c4f426fcf0bf9dd1bb6e2081b2d219fd68000>
+    - CC_TEST_REPORTER_ID=4de39734c35005a83d5dcd2a503c4f426fcf0bf9dd1bb6e2081b2d219fd68000
 
 
 before_script:
@@ -17,6 +17,7 @@ before_script:
 script: 
   - make lint   
   - make test -coverage
+  - bundle exec rspec
 
 
   after_script:
