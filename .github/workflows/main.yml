@@ -16,5 +16,6 @@ jobs:
         echo Add other actions to build,
         echo test, and deploy your project.
     - name: StandardJS lint checks
-      uses: goto-bus-stop/standard-action@v1.0.3
+      uses: eslint-config-airbnb-base@v14.0.0
+      
 
