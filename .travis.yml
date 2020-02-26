@@ -16,8 +16,7 @@ before_script:
 
 script: 
   - make lint   
-  - make test -coverage
-  - bundle exec rspec
+  - npm test -- --coverage
 
 
   after_script:
