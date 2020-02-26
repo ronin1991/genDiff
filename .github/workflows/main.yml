@@ -16,6 +16,9 @@ jobs:
         echo Add other actions to build,
         echo test, and deploy your project.
     - name: StandardJS lint checks
-      run: npx eslint .
+      run: |
+        npm install
+        npm run dev
+        npx eslint .
       
 
