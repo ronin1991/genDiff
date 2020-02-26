@@ -10,3 +10,6 @@ lint:
 
 build:
 	npm run build
+
+test-coverage:
+  npm test -- --coverage

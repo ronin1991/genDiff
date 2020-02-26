@@ -1,3 +1,5 @@
+
+
 language: node_js
 node_js:
   - node
@@ -16,7 +18,7 @@ before_script:
 
 script: 
   - make lint   
-  - npm test -- --coverage
+  - make test-coverage
 
 
   after_script:
