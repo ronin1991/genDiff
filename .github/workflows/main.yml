@@ -18,7 +18,7 @@ jobs:
     - name: StandardJS lint checks
       run: |
         npm install
-        npm run dev
+        npm run build
         npx eslint .
       
 
