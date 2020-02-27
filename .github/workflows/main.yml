@@ -20,5 +20,6 @@ jobs:
         npm install
         npm run build
         npx eslint .
+        npm run test
       
 
