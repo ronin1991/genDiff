@@ -1,37 +1,23 @@
-import { fileParseToString } from './utils';
+import { getFormatFile, getСomparisonResult, getUniqKeys } from './utils';
+import { parseYamlFile, parseJsonFile } from './parsers';
 
-const path = require('path');
-const _ = require('lodash');
+// const _ = require('lodash');
 
-const compareFiles = (firstPathToFile, secondPathToFile) => {
-  const firstFilePath = path.resolve(firstPathToFile);
-  const secondFilePath = path.resolve(secondPathToFile);
+const compareFiles = (firstFile, secondFile) => {
+  let firstDataFile;
+  let secondDataFile;
 
-  const firstFileData = fileParseToString(firstFilePath);
-  const secondFileData = fileParseToString(secondFilePath);
-  const firstKeyValuesArr = Object.keys(firstFileData);
-  const secondKeyVauesArr = Object.keys(secondFileData);
-  const uniqKeys = _.uniq([...firstKeyValuesArr, ...secondKeyVauesArr]);
+  if (getFormatFile(firstFile) === '.yaml' && getFormatFile(secondFile) === '.yaml') {
+    firstDataFile = parseYamlFile(firstFile);
+    secondDataFile = parseYamlFile(secondFile);
+  }
 
-  const result = uniqKeys.reduce((acc, key) => {
-    let resAcc = acc;
-    if (_.has(firstFileData, key) && _.has(secondFileData, key)
-      && firstFileData[key] === secondFileData[key]) {
-      resAcc = `${acc}   ${key}: ${firstFileData[key]}\n`;
-    }
-    if (_.has(firstFileData, key) && _.has(secondFileData, key)
-      && firstFileData[key] !== secondFileData[key]) {
-      resAcc = `${resAcc} + ${key}: ${secondFileData[key]}\n - ${key}: ${firstFileData[key]}\n`;
-    }
-    if (_.has(firstFileData, key) && !_.has(secondFileData, key)) {
-      resAcc = `${resAcc} + ${key}: ${firstFileData[key]}\n`;
-    }
-    if (!_.has(firstFileData, key) && _.has(secondFileData, key)) {
-      resAcc = `${resAcc} - ${key}: ${secondFileData[key]}\n`;
-    }
-    return resAcc;
-  }, '');
-  return `{\n${result}}`;
+  if (getFormatFile(firstFile) === '.json' && getFormatFile(secondFile) === '.json') {
+    firstDataFile = parseJsonFile(firstFile);
+    secondDataFile = parseJsonFile(secondFile);
+  }
+  const uniqKeys = getUniqKeys(firstDataFile, secondDataFile);
+
+  return getСomparisonResult(firstDataFile, secondDataFile, uniqKeys);
 };
-
 export default compareFiles;

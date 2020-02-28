@@ -1,0 +1,13 @@
+# aliases:  #последовательность настроек
+#  - &myAlias1
+#    datakey: dataval 1
+#    moredata: morevals 1
+#  - &myAlias2
+#    datakey: dataval 2
+#    moredata: morevals 2
+# config:
+#  - *myAlias1  # *myAlias1 после парсинга будет заменен на [{"datakey": "dataval 1", "moredata": "morevals 1"}]
+
+timeout: 20
+verbose : true
+host: "hexlet.io"
