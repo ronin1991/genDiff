@@ -9,4 +9,5 @@ const compareFiles = (firstFile, secondFile) => {
   return getСomparisonResult(firstDataFile, secondDataFile, uniqKeys);
 };
 
+
 export default compareFiles;

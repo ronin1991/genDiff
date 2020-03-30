@@ -8,7 +8,8 @@
     "test": "jest"
   },
   "bin": {
-    "gendiff": "dist/bin/gendiff.js"
+    "gendiff": "dist/bin/gendiff.js",
+    "da": "dist/bin/da.js"
   },
   "files": [
     "dist"

@@ -1,5 +1,6 @@
 const path = require('path');
 const _ = require('lodash');
+const fs = require('fs');
 
 
 const getFormatFile = (file) => path.extname(file);
@@ -32,20 +33,3 @@ export {
   getUniqKeys,
   getFormatFile, getСomparisonResult,
 };
-// const compareFiles = (firstFile, secondFile) => {
-//   let firstDataFile;
-//   let secondDataFile;
-
-//   if (getFormatFile(firstFile) === '.yaml' && getFormatFile(secondFile) === '.yaml') {
-//     firstDataFile = parseYaml(firstFile);
-//     secondDataFile = parseYaml(secondFile);
-//   }
-
-//   if (getFormatFile(firstFile) === '.json' && getFormatFile(secondFile) === '.json') {
-//     firstDataFile = parseJson(firstFile);
-//     secondDataFile = parseJson(secondFile);
-//   }
-//   const uniqKeys = getUniqKeys(firstDataFile, secondDataFile);
-
-//   return getСomparisonResult(firstDataFile, secondDataFile, uniqKeys);
-// };

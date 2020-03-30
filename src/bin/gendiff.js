@@ -13,8 +13,10 @@ program
 
   .action((firstPathToFile, secondPathToFile) => {
     console.log(compareFiles(firstPathToFile, secondPathToFile));
-    console.log(ini.parse(fs.readFileSync('__fixtures__/after.yaml', 'utf-8')));
+    console.log(ini.parse(fs.readFileSync('__fixtures__/after.ini', 'utf-8')));
   });
+
+
 program.parse(process.argv);
 
 export default compareFiles;
