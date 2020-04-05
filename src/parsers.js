@@ -3,14 +3,14 @@ import { getFormatFile } from './utils';
 const fs = require('fs');
 const yaml = require('js-yaml');
 const ini = require('ini');
-
+// realeze Switch
 const parseIni = (file) => ini.parse(fs.readFileSync(file, 'utf-8'));
 
 const parseYaml = (file) => yaml.safeLoad(fs.readFileSync(file), 'utf-8');
 
 const parseJson = (file) => JSON.parse(fs.readFileSync(file, 'utf-8'));
 
-const parseFilesToStr = (firstFile, secondFile) => {
+const parseFile = (firstFile, secondFile) => {
   if (getFormatFile(firstFile) === '.yaml' && getFormatFile(secondFile) === '.yaml') {
     const firstDataFile = parseYaml(firstFile);
     const secondDataFile = parseYaml(secondFile);
@@ -35,5 +35,5 @@ const parseFilesToStr = (firstFile, secondFile) => {
 
 export {
   parseYaml, parseJson, parseIni,
-  parseFilesToStr,
+  parseFile,
 };

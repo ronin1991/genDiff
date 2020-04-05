@@ -1,13 +1,17 @@
-import { getСomparisonResult, getUniqKeys } from './utils';
-import { parseFilesToStr } from './parsers';
+import renderJson from './render-json';
+import buildAst from './buildAst';
 
+const fs = require('fs');
+// НУжно сделать выборку типа файла
+// Input
 const compareFiles = (firstFile, secondFile) => {
-  const [firstDataFile, secondDataFile] = parseFilesToStr(firstFile, secondFile);
+  const firstFileData = JSON.parse(fs.readFileSync(firstFile));
+  const secondFileData = JSON.parse(fs.readFileSync(secondFile));
+  // logic
+  const ast = buildAst(firstFileData, secondFileData);
 
-  const uniqKeys = getUniqKeys(firstDataFile, secondDataFile);
-
-  return getСomparisonResult(firstDataFile, secondDataFile, uniqKeys);
+  // output
+  return `{${renderJson(ast)}\n}`;
 };
-
 
 export default compareFiles;

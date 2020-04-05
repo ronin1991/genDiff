@@ -1,8 +1,6 @@
 #!/usr/bin/env  node
 import compareFiles from '..';
 
-const fs = require('fs');
-const ini = require('ini');
 const program = require('commander');
 
 program
@@ -13,7 +11,6 @@ program
 
   .action((firstPathToFile, secondPathToFile) => {
     console.log(compareFiles(firstPathToFile, secondPathToFile));
-    console.log(ini.parse(fs.readFileSync('__fixtures__/after.ini', 'utf-8')));
   });
 
 
