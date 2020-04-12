@@ -1,5 +1,4 @@
 const path = require('path');
-const _ = require('lodash');
 
 const getFormat = (firstFile, secondFile) => {
   if (path.extname(firstFile) === path.extname(secondFile)) {
