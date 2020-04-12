@@ -1,17 +1,20 @@
-import renderJson from './render-json';
+import getFormat from './utils';
 import buildAst from './buildAst';
+import { parserToFiles } from './parsers';
+import formater from './formatters/formater';
 
-const fs = require('fs');
-// НУжно сделать выборку типа файла
+
 // Input
-const compareFiles = (firstFile, secondFile) => {
-  const firstFileData = JSON.parse(fs.readFileSync(firstFile));
-  const secondFileData = JSON.parse(fs.readFileSync(secondFile));
+const compareFiles = (firstFilePath, secondFilePath, formatOutput) => {
+  const format = getFormat(firstFilePath, secondFilePath);
+  const [firstFileData, secondFileData] = parserToFiles(firstFilePath, secondFilePath, format);
+
   // logic
   const ast = buildAst(firstFileData, secondFileData);
 
   // output
-  return `{${renderJson(ast)}\n}`;
+
+  return formater(ast, formatOutput);
 };
 
 export default compareFiles;

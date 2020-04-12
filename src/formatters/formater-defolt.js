@@ -1,9 +1,16 @@
-import { stringify } from './utils';
-
 const _ = require('lodash');
 
+const stringify = (value, lvl) => {
+  if (value instanceof Object) {
+    const space = lvl + 6;
+    const key = Object.keys(value);
+    const objValue = Object.values(value);
+    return `{ \n${' '.repeat(space)}${key[0]}: ${stringify(objValue[0], space)}\n${' '.repeat(space - 4)}}`;
+  }
+  return value;
+};
 
-const types1 = [
+const types = [
   {
     type: 'nested',
     check: (type) => type === 'nested',
@@ -40,10 +47,10 @@ const types1 = [
   },
 ];
 
-const renderJson = (data, lvl = 0) => data.reduce((acc, e) => {
-  const { process } = _.find(types1, ({ check }) => check(e.type));
-  return process(e, acc, lvl, renderJson);
+const renderDefalt = (data, lvl = 0) => data.reduce((acc, e) => {
+  const { process } = _.find(types, ({ check }) => check(e.type));
+  return process(e, acc, lvl, renderDefalt);
 }, '');
 
 
-export default renderJson;
+export default renderDefalt;
