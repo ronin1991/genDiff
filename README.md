@@ -1,10 +1,13 @@
 # frontend-project-lvl2
-git clone https://github.com/ronin1991/frontend-project-lvl2.git
-make install
-npm run build
-sudo npm link
+## Setup
+### $ git clone https://github.com/ronin1991/frontend-project-lvl2.git
+### $ make install
+### $ npm run build
+### $ sudo npm link
+### $ make install
 
-genddiff [options] <firstFile> <secondFile>
+
+### genddiff [options] \<first file\> \<second file>
 
 [![Build Status](https://travis-ci.com/ronin1991/frontend-project-lvl2.svg?branch=master)](https://travis-ci.com/ronin1991/frontend-project-lvl2)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f01a96c3a59332fbd670/test_coverage)](https://codeclimate.com/github/ronin1991/frontend-project-lvl2/test_coverage)
