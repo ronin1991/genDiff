@@ -43,14 +43,10 @@ const buildAst = (firstFile = {}, secondFile = {}) => {
     const { type, process } = _.find(types, ({ check }) => check(firstFile, secondFile, key));
     if (type === 'nested') {
       const children = process(firstFile[key], secondFile[key], buildAst);
-      return {
-        type, name: key, children,
-      };
+      return { type, name: key, children };
     }
     const value = process(firstFile[key], secondFile[key], buildAst);
-    return {
-      type, name: key, value,
-    };
+    return { type, name: key, value };
   });
   return result;
 };

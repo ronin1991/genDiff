@@ -1,7 +1,7 @@
 import getFormat from './utils';
 import buildAst from './buildAst';
 import { parserToFiles } from './parsers';
-import formater from './formatters/formater';
+import mapping from './formatters/mapping';
 
 
 // Input
@@ -14,7 +14,7 @@ const compareFiles = (firstFilePath, secondFilePath, formatOutput) => {
 
   // output
 
-  return formater(ast, formatOutput);
+  return mapping[formatOutput](ast);
 };
 
 export default compareFiles;

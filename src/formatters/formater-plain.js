@@ -1,6 +1,3 @@
-// const _ = require('lodash');
-
-
 const types = {
   nested: (e, acc, objName, fn) => {
     const name = (objName) ? `${objName}.${e.name}` : e.name;
