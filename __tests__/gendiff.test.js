@@ -1,13 +1,18 @@
 import gendiff from '../src';
+import { readFile } from '../src/utils';
 
-const fs = require('fs');
+let outDefault;
+let outPlain;
+let outJson;
 
-const outDefalt = fs.readFileSync('__fixtures__/result.txt', 'utf-8');
-const outPlain = fs.readFileSync('__fixtures__/plain.txt', 'utf-8');
-const outJson = fs.readFileSync('__fixtures__/test-json.txt', 'utf-8');
+beforeAll(() => {
+  outDefault = readFile('result.txt');
+  outPlain = readFile('plain.txt');
+  outJson = readFile('test-json.txt');
+});
 
 test('out defalt', () => {
-  expect(gendiff('__fixtures__/before.json', '__fixtures__/after.json')).toEqual(outDefalt);
+  expect(gendiff('__fixtures__/before.json', '__fixtures__/after.json')).toEqual(outDefault);
 });
 
 test('out plain', () => {
@@ -16,4 +21,3 @@ test('out plain', () => {
 test('out json', () => {
   expect(gendiff('__fixtures__/before.json', '__fixtures__/after.json', 'json')).toEqual(outJson);
 });
-// тест json
