@@ -18,7 +18,7 @@ jobs:
       - name: npm install, build
         run: | 
           make install
-          make buile
+          make build
       - name: Run Linter
         run: |
           npx eslint .
