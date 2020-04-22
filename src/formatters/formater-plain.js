@@ -1,7 +1,7 @@
 const types = {
   nested: (e, acc, objName, fn) => {
     const name = (objName) ? `${objName}.${e.name}` : e.name;
-    return `${acc}${fn(e.children, name)}`;
+    return `${acc}${fn(e.value, name)}`;
   },
   addKey: (e, acc, objName) => {
     const value = (e.value instanceof Object) ? '[complex value]' : `${e.value}`;

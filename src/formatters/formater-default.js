@@ -16,7 +16,7 @@ const types = [
     check: (type) => type === 'nested',
     process: (e, acc, lvl, fn) => {
       const space = (lvl === 0) ? 4 : lvl + 3;
-      return `${acc} \n${' '.repeat(space)}${e.name}: {${fn(e.children, space + 1)}\n${' '.repeat(space)}}`;
+      return `${acc} \n${' '.repeat(space)}${e.name}: {${fn(e.value, space + 1)}\n${' '.repeat(space)}}`;
     },
   },
   {
@@ -47,10 +47,10 @@ const types = [
   },
 ];
 
-const renderDefalt = (data, lvl = 0) => data.reduce((acc, e) => {
+const renderDefault = (data, lvl = 0) => data.reduce((acc, e) => {
   const { process } = _.find(types, ({ check }) => check(e.type));
-  return process(e, acc, lvl, renderDefalt);
+  return process(e, acc, lvl, renderDefault);
 }, '');
 
 
-export default renderDefalt;
+export default renderDefault;

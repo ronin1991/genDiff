@@ -1,23 +1,26 @@
-import { getFormat } from './utils';
+import fs from 'fs';
+import path from 'path';
 import buildAst from './buildAst';
-import { parserToFile } from './parsers';
+import { getDataParser } from './parsers';
 import mapping from './formatters';
 
 
 // Input
 const compareFiles = (firstFilePath, secondFilePath, formatOutput) => {
-  const formatFirstFile = getFormat(firstFilePath);
-  const formatSecondFile = getFormat(secondFilePath);
+  const firstDataFile = fs.readFileSync(firstFilePath, 'utf-8');
+  const firstFormatFile = path.extname(firstFilePath);
+  const secondDataFile = fs.readFileSync(secondFilePath, 'utf-8');
+  const secondFormatfile = path.extname(secondFilePath);
 
-  const firstFileData = parserToFile(firstFilePath, formatFirstFile);
-  const secondFileData = parserToFile(secondFilePath, formatSecondFile);
 
+  const firstFileData = getDataParser(firstDataFile, firstFormatFile);
+  const secondFileData = getDataParser(secondDataFile, secondFormatfile);
   // logic
   const ast = buildAst(firstFileData, secondFileData);
 
   // output
 
-  return mapping[formatOutput](ast);
+  return mapping(formatOutput)(ast);
 };
 
 export default compareFiles;

@@ -1,23 +1,27 @@
+import fs from 'fs';
 import gendiff from '../src';
-import { readFile } from '../src/utils';
+import { getFixturePath } from '../src/utils';
 
 let outDefault;
 let outPlain;
 let outJson;
 
+const firstFilePath = getFixturePath('before.json');
+const secondFilePath = getFixturePath('after.json');
+
 beforeAll(() => {
-  outDefault = readFile('result.txt');
-  outPlain = readFile('plain.txt');
-  outJson = readFile('test-json.txt');
+  outDefault = fs.readFileSync(getFixturePath('result.txt'), 'utf-8');
+  outPlain = fs.readFileSync(getFixturePath('plain.txt'), 'utf-8');
+  outJson = fs.readFileSync(getFixturePath('test-json.txt'), 'utf-8');
 });
 
-test('out defalt', () => {
-  expect(gendiff('__fixtures__/before.json', '__fixtures__/after.json')).toEqual(outDefault);
+test('out default', () => {
+  expect(gendiff(firstFilePath, secondFilePath, 'default')).toEqual(outDefault);
 });
 
 test('out plain', () => {
-  expect(gendiff('__fixtures__/before.json', '__fixtures__/after.json', 'plain')).toEqual(outPlain);
+  expect(gendiff(firstFilePath, secondFilePath, 'plain')).toEqual(outPlain);
 });
 test('out json', () => {
-  expect(gendiff('__fixtures__/before.json', '__fixtures__/after.json', 'json')).toEqual(outJson);
+  expect(gendiff(firstFilePath, secondFilePath, 'json')).toEqual(outJson);
 });

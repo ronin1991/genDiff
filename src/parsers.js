@@ -8,15 +8,16 @@ const parseYaml = (file) => yaml.safeLoad(fs.readFileSync(file), 'utf-8');
 
 const parseJson = (file) => JSON.parse(fs.readFileSync(file, 'utf-8'));
 
-const parserToFile = (file, format) => {
+
+const getDataParser = (data, format) => {
   if (format === '.json') {
-    return parseJson(file);
+    return JSON.parse(data);
   }
-  return console.error('not found "parserToFiles"');
+  return console.error('not found "getDataParser"');
 };
 
 
 export {
   parseYaml, parseJson, parseIni,
-  parserToFile,
+  getDataParser,
 };
