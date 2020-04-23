@@ -1,10 +1,12 @@
 import fs from 'fs';
+import path from 'path';
 import gendiff from '../src';
-import { getFixturePath } from '../src/utils';
 
 let outDefault;
 let outPlain;
 let outJson;
+
+const getFixturePath = (fileName) => path.join(__dirname, '..', '__fixtures__', fileName);
 
 const firstFilePath = getFixturePath('before.json');
 const secondFilePath = getFixturePath('after.json');
