@@ -9,11 +9,11 @@ const formatList = {
   default: (ast) => `{${renderDefault(ast)}\n}`,
 };
 
-const mapping = (format) => {
+const pickMappingFormat = (format) => {
   if (!_.has(formatList, format)) {
     console.error('no such format in the formatList');
   }
   return formatList[format];
 };
 
-export default mapping;
+export default pickMappingFormat;

@@ -36,17 +36,14 @@ const types = [
 ];
 
 
-const buildAst = (firstFile = {}, secondFile = {}) => {
-  const uniqKeys = _.union(Object.keys(firstFile), Object.keys(secondFile));
+const buildAst = (firstFileData = {}, secondFileData = {}) => {
+  const uniqKeys = _.union(Object.keys(firstFileData), Object.keys(secondFileData));
 
   const result = uniqKeys.map((key) => {
-    const { type, process } = _.find(types, ({ check }) => check(firstFile, secondFile, key));
-    // if (type === 'nested') {
-    //   const children = process(firstFile[key], secondFile[key], buildAst);
-    //   return { type, name: key, children };
-    // }
-    const value = (type === 'nested') ? process(firstFile[key], secondFile[key], buildAst)
-      : process(firstFile[key], secondFile[key], buildAst);
+    const { type, process } = _.find(types,
+      ({ check }) => check(firstFileData, secondFileData, key));
+
+    const value = process(firstFileData[key], secondFileData[key], buildAst);
     return {
       type,
       name: key,
