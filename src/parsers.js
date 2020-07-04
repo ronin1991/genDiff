@@ -1,18 +1,18 @@
 import yaml from 'js-yaml';
 import ini from 'ini';
 
-const getData = (data, format) => {
+const parser = (format) => {
   switch (format) {
-    case '.json':
-      return JSON.parse(data);
+    case 'json':
+      return JSON.parse;
     case 'ini':
-      return ini.parse(data);
+      return ini.parse;
     case 'yaml':
-      return yaml.safeLoad(data);
+      return yaml.safeLoad;
     default:
-      return console.error('not found "getData"');
+      throw new Error('no parser for this type');
   }
 };
 
 
-export default getData;
+export default parser;

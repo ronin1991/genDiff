@@ -20,29 +20,29 @@ const types = [
     },
   },
   {
-    type: 'addKey',
-    check: (type) => type === 'addKey',
+    type: 'added',
+    check: (type) => type === 'added',
     process: (e, acc, lvl) => {
       const space = (lvl === 0) ? 2 : lvl + 1;
       return `${acc}\n${' '.repeat(space)}+ ${e.name}: ${stringify(e.value, space)}`;
     },
   },
   {
-    type: 'deletedKey',
-    check: (type) => type === 'deletedKey',
+    type: 'deleted',
+    check: (type) => type === 'deleted',
     process: (e, acc, lvl) => {
       const space = (lvl === 0) ? 2 : lvl + 1;
       return `${acc}\n${' '.repeat(space)}- ${e.name}: ${stringify(e.value, space)}`;
     },
   },
   {
-    type: 'changeValue',
-    check: (type) => type === 'changeValue',
+    type: 'changed',
+    check: (type) => type === 'changed',
     process: (e, acc, lvl) => `${acc}\n${' '.repeat(lvl + 1)}- ${e.name}: ${stringify(e.value[0], lvl + 1)}\n${' '.repeat(lvl + 1)}+ ${e.name}: ${stringify(e.value[1], lvl + 1)}`,
   },
   {
-    type: 'notChange',
-    check: (type) => type === 'notChange',
+    type: 'notModified',
+    check: (type) => type === 'notModified',
     process: (e, acc, lvl) => `${acc} \n${' '.repeat(lvl + 3)}${e.name}: ${e.value}`,
   },
 ];

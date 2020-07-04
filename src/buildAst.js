@@ -9,26 +9,26 @@ const types = [
   },
 
   {
-    type: 'deletedKey',
+    type: 'deleted',
     check: (firstFile, secondFile, key) => (_.has(firstFile, key) && !(_.has(secondFile, key))),
     process: (firstValue) => firstValue,
   },
 
   {
-    type: 'changeValue',
+    type: 'changed',
     check: (firstValue, secondValue, key) => (_.has(firstValue, key) && _.has(secondValue, key))
       && (firstValue[key] !== secondValue[key]),
     process: (firstValue, secondValue) => [firstValue, secondValue],
   },
 
   {
-    type: 'addKey',
+    type: 'added',
     check: (firstValue, secondValue, key) => !_.has(firstValue, key) && _.has(secondValue, key),
     process: (_firstValue, secondValue) => secondValue,
   },
 
   {
-    type: 'notChange',
+    type: 'notModified',
     check: (firstValue, secondValue, key) => _.has(firstValue, key) && _.has(secondValue, key)
       && firstValue[key] === secondValue[key],
     process: (firstValue) => firstValue,

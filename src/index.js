@@ -1,25 +1,24 @@
 import fs from 'fs';
 import path from 'path';
 import buildAst from './buildAst';
-import getData from './parsers';
-import pickMappingFormat from './formatters';
+import getParse from './parsers';
+import getRender from './formatters';
 
+const getData = (filePath) => {
+  const data = fs.readFileSync(filePath, 'utf-8');
+  const formatFile = path.extname(filePath).slice(1);
+  const parse = getParse(formatFile);
+  return parse(data);
+};
 
-// Input
 const genDiff = (firstFilePath, secondFilePath, formatOutput) => {
-  const firstDataFile = fs.readFileSync(firstFilePath, 'utf-8');
-  const firstFormatFile = path.extname(firstFilePath);
-  const secondDataFile = fs.readFileSync(secondFilePath, 'utf-8');
-  const secondFormatfile = path.extname(secondFilePath);
+  const firstData = getData(firstFilePath);
+  const secondData = getData(secondFilePath);
 
-  const firstFileData = getData(firstDataFile, firstFormatFile);
-  const secondFileData = getData(secondDataFile, secondFormatfile);
-  // logic
-  const ast = buildAst(firstFileData, secondFileData);
+  const ast = buildAst(firstData, secondData);
 
-  // output
-
-  return pickMappingFormat(formatOutput)(ast);
+  const render = getRender(formatOutput);
+  return render(ast);
 };
 
 export default genDiff;

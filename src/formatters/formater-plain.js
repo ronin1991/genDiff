@@ -3,23 +3,23 @@ const types = {
     const name = (objName) ? `${objName}.${e.name}` : e.name;
     return `${acc}${fn(e.value, name)}`;
   },
-  addKey: (e, acc, objName) => {
+  added: (e, acc, objName) => {
     const value = (e.value instanceof Object) ? '[complex value]' : `${e.value}`;
     return (objName) ? `${acc}\nProperty '${objName}.${e.name}' was added with value: '${value}'`
       : `${acc}\nProperty '${e.name}' was added with value: ${value}`;
   },
-  deletedKey: (e, acc, objName) => {
+  deleted: (e, acc, objName) => {
     const result = (objName) ? `${acc}Property '${objName}.${e.name}' was deleted`
       : `${acc}\nProperty '${e.name}' was deleted`;
     return result;
   },
-  changeValue: (e, acc, objName) => {
+  changed: (e, acc, objName) => {
     const value1 = (e.value[0] instanceof Object) ? '[complex value]' : e.value[0];
     const value2 = (e.value[1] instanceof Object) ? '[complex value]' : e.value[1];
     return (objName) ? `${acc}\nProperty '${objName}.${e.name}' was changed from '${value1}' to '${value2}'`
       : `${acc}\nProperty '${e.name}' was changed from '${value1}' to '${value2}'`;
   },
-  notChange: (e, acc) => `${acc}`,
+  notModified: (e, acc) => `${acc}`,
 };
 
 
