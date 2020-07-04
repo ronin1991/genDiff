@@ -3,14 +3,14 @@ import _ from 'lodash';
 const types = [
   {
     type: 'nested',
-    check: (firstFile, secondFile, key) => (firstFile[key] instanceof Object)
-      && (secondFile[key] instanceof Object),
+    check: (firstData, secondData, key) => (firstData[key] instanceof Object)
+      && (secondData[key] instanceof Object),
     process: (firstObj, secondObj, fn) => fn(firstObj, secondObj),
   },
 
   {
     type: 'deleted',
-    check: (firstFile, secondFile, key) => (_.has(firstFile, key) && !(_.has(secondFile, key))),
+    check: (firstData, secondData, key) => (_.has(firstData, key) && !(_.has(secondData, key))),
     process: (firstValue) => firstValue,
   },
 
@@ -36,14 +36,14 @@ const types = [
 ];
 
 
-const buildAst = (firstFileData = {}, secondFileData = {}) => {
-  const uniqKeys = _.union(Object.keys(firstFileData), Object.keys(secondFileData));
+const buildAst = (firstData = {}, secondData = {}) => {
+  const uniqKeys = _.union(Object.keys(firstData), Object.keys(secondData));
 
   const result = uniqKeys.map((key) => {
     const { type, process } = _.find(types,
-      ({ check }) => check(firstFileData, secondFileData, key));
+      ({ check }) => check(firstData, secondData, key));
 
-    const value = process(firstFileData[key], secondFileData[key], buildAst);
+    const value = process(firstData[key], secondData[key], buildAst);
     return {
       type,
       name: key,
