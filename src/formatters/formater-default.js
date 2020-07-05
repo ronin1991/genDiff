@@ -47,10 +47,14 @@ const types = [
   },
 ];
 
-const renderDefault = (data, lvl = 0) => data.reduce((acc, e) => {
-  const { process } = _.find(types, ({ check }) => check(e.type));
-  return process(e, acc, lvl, renderDefault);
-}, '');
+const renderDefault = (data) => {
+  const render = (data1, lvl = 0) => data1.reduce((acc, e) => {
+    const { process } = _.find(types, ({ check }) => check(e.type));
+    return process(e, acc, lvl, render);
+  }, '');
+  const result = render(data);
+  return `{${result}\n}`;
+};
 
 
 export default renderDefault;

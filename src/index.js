@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import buildAst from './buildAst';
-import getParse from './parsers';
+import getParse from './parse';
 import getRender from './formatters';
 
 const getData = (filePath) => {

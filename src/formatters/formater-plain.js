@@ -22,11 +22,14 @@ const types = {
   notModified: (e, acc) => `${acc}`,
 };
 
-
-const renderPlain = (data, objName) => data.reduce((acc, e) => {
-  const process = types[e.type];
-  return process(e, acc, objName, renderPlain);
-}, '');
+const renderPlain = (ast) => {
+  const render = (data, objName) => data.reduce((acc, e) => {
+    const process = types[e.type];
+    return process(e, acc, objName, render);
+  }, '');
+  const result = render(ast);
+  return `${result}`;
+};
 
 
 export default renderPlain;

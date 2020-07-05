@@ -1,7 +1,7 @@
 import yaml from 'js-yaml';
 import ini from 'ini';
 
-const parser = (format) => {
+const parse = (format) => {
   switch (format) {
     case 'json':
       return JSON.parse;
@@ -15,4 +15,4 @@ const parser = (format) => {
 };
 
 
-export default parser;
+export default parse;
