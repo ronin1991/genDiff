@@ -1,6 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 import fs from 'fs';
+import { fileURLToPath } from 'url';
 import path from 'path';
 import gendiff from '../src';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 let outDefault;
 let outPlain;
@@ -9,6 +14,7 @@ let outYaml;
 let outIni;
 
 const getFixturePath = (fileName) => path.join(__dirname, '__fixtures__', fileName);
+console.log(__dirname);
 
 const firstJson = getFixturePath('first.json');
 const secondJson = getFixturePath('second.json');
