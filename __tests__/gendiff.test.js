@@ -26,7 +26,7 @@ const secondIni = getFixturePath('second.ini');
 
 const jsonOutDefault = fs.readFileSync(getFixturePath('json-default.txt'), 'utf-8');
 const jsonOutPlain = fs.readFileSync(getFixturePath('json-plain.txt'), 'utf-8');
-const jsonOutJson = fs.readFileSync(getFixturePath('out.json'), 'utf-8');
+const jsonOut = fs.readFileSync(getFixturePath('out.json'), 'utf-8');
 
 const yamlOutDefault = fs.readFileSync(getFixturePath('yaml-default.txt'), 'utf-8');
 const yamlOutPlain = fs.readFileSync(getFixturePath('yaml-plain.txt'), 'utf-8');
@@ -37,32 +37,26 @@ const iniOutPlain = fs.readFileSync(getFixturePath('ini-plain.txt'), 'utf-8');
 const iniOutJson = fs.readFileSync(getFixturePath('ini-json.json'), 'utf-8');
 
 
-test('JSON outDefault', () => {
-  expect(gendiff(firstJson, secondJson, 'default')).toEqual(jsonOutDefault);
-});
-test('JSON outPlain', () => {
-  expect(gendiff(firstJson, secondJson, 'plain')).toEqual(jsonOutPlain);
-});
-test('JSON outJson', () => {
-  expect(gendiff(firstJson, secondJson, 'json')).toEqual(jsonOutJson);
+test.each([
+  [firstJson, secondJson, jsonOutDefault],
+  [firstYaml, secondYaml, yamlOutDefault],
+  [firstIni, secondIni, iniOutDefault],
+])('outDefault(%s, %s)', (firstFile, secondFile, expected) => {
+  expect(gendiff(firstFile, secondFile, 'default')).toBe(expected);
 });
 
-test('yaml outDefault', () => {
-  expect(gendiff(firstYaml, secondYaml, 'default')).toEqual(yamlOutDefault);
-});
-test('yaml outPlain', () => {
-  expect(gendiff(firstYaml, secondYaml, 'plain')).toEqual(yamlOutPlain);
-});
-test('yaml outJson', () => {
-  expect(gendiff(firstYaml, secondYaml, 'json')).toEqual(yamlOutJson);
+test.each([
+  [firstJson, secondJson, jsonOutPlain],
+  [firstYaml, secondYaml, yamlOutPlain],
+  [firstIni, secondIni, iniOutPlain],
+])('outIni(%s, %s)', (firstFile, secondFile, expected) => {
+  expect(gendiff(firstFile, secondFile, 'plain')).toBe(expected);
 });
 
-test('ini outDefault', () => {
-  expect(gendiff(firstIni, secondIni, 'default')).toEqual(iniOutDefault);
-});
-test('ini outPlain', () => {
-  expect(gendiff(firstIni, secondIni, 'plain')).toEqual(iniOutPlain);
-});
-test('ini outJson', () => {
-  expect(gendiff(firstIni, secondIni, 'json')).toEqual(iniOutJson);
+test.each([
+  [firstJson, secondJson, jsonOut],
+  [firstYaml, secondYaml, yamlOutJson],
+  [firstIni, secondIni, iniOutJson],
+])('outJson(%s, %s)', (firstFile, secondFile, expected) => {
+  expect(gendiff(firstFile, secondFile, 'json')).toBe(expected);
 });
