@@ -1,34 +1,34 @@
+
 const types = {
-  nested: (e, acc, objName, fn) => {
-    const name = (objName) ? `${objName}.${e.name}` : e.name;
-    return `${acc}${fn(e.value, name)}`;
+  nested: (e, acc, key, render) => {
+    const name = (key) ? `${key}.${e.name}` : e.name;
+    return `${acc}${render(e.value, name)}`;
   },
-  added: (e, acc, objName) => {
+  added: (e, acc, key) => {
     const value = (e.value instanceof Object) ? '[complex value]' : `${e.value}`;
-    return (objName) ? `${acc}\nProperty '${objName}.${e.name}' was added with value: '${value}'`
+    return (key) ? `${acc}\nProperty '${key}.${e.name}' was added with value: '${value}'`
       : `${acc}\nProperty '${e.name}' was added with value: ${value}`;
   },
-  deleted: (e, acc, objName) => {
-    const result = (objName) ? `${acc}Property '${objName}.${e.name}' was deleted`
+  deleted: (e, acc, key) => {
+    const result = (key) ? `${acc}Property '${key}.${e.name}' was deleted`
       : `${acc}\nProperty '${e.name}' was deleted`;
     return result;
   },
-  changed: (e, acc, objName) => {
+  changed: (e, acc, key) => {
     const value1 = (e.value[0] instanceof Object) ? '[complex value]' : e.value[0];
     const value2 = (e.value[1] instanceof Object) ? '[complex value]' : e.value[1];
-    return (objName) ? `${acc}\nProperty '${objName}.${e.name}' was changed from '${value1}' to '${value2}'`
+    return (key) ? `${acc}\nProperty '${key}.${e.name}' was changed from '${value1}' to '${value2}'`
       : `${acc}\nProperty '${e.name}' was changed from '${value1}' to '${value2}'`;
   },
   notModified: (e, acc) => `${acc}`,
 };
 
 const renderPlain = (ast) => {
-  const render = (data, objName) => data.reduce((acc, e) => {
-    const process = types[e.type];
-    return process(e, acc, objName, render);
+  const render = (data, key) => data.reduce((acc, e) => {
+    const formater = types[e.type];
+    return formater(e, acc, key, render);
   }, '');
-  const result = render(ast);
-  return `${result}`;
+  return render(ast).trim();
 };
 
 

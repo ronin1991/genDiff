@@ -1,4 +1,4 @@
 ---
-host: hexlet.io
-ip: 123.234.53.22
-timeout: 30
+follow: true
+setting1: "Value1"
+setting3: { key: "value" }

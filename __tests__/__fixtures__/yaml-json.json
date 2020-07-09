@@ -1,0 +1,1 @@
+[{"type":"changed","name":"follow","value":[false,true]},{"type":"deleted","name":"host","value":{"hexlet":"io"}},{"type":"deleted","name":"proxy","value":"123.234.53.22"},{"type":"deleted","name":"timeout","value":50},{"type":"added","name":"setting1","value":"Value1"},{"type":"added","name":"setting3","value":{"key":"value"}}]

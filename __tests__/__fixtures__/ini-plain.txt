@@ -1,0 +1,7 @@
+Property 'timeout' was changed from '23' to '1'
+Property 'host' was deleted
+Property 'da' was deleted
+Property 'proxy' was added with value: 123.234.53.22
+Property 'follow' was added with value: false
+Property 'first' was added with value: [complex value]
+Property 'birst' was added with value: [complex value]

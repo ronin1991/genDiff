@@ -1,59 +1,39 @@
-import _ from 'lodash';
-
-const stringify = (value, lvl) => {
+const stringify = (value, lvl, fn) => {
+  if (Array.isArray(value)) {
+    return `${fn(value, lvl + 4)}`;
+  }
   if (value instanceof Object) {
-    const space = lvl + 6;
-    const key = Object.keys(value);
-    const objValue = Object.values(value);
-    return `{ \n${' '.repeat(space)}${key[0]}: ${stringify(objValue[0], space)}\n${' '.repeat(space - 4)}}`;
+    const keys = Object.keys(value);
+    const val = Object.values(value);
+    return `{\n${' '.repeat(lvl + 7)}${keys}: ${val}\n${' '.repeat(lvl + 3)}}`;
   }
   return value;
 };
 
-const types = [
-  {
-    type: 'nested',
-    check: (type) => type === 'nested',
-    process: (e, acc, lvl, fn) => {
-      const space = (lvl === 0) ? 4 : lvl + 3;
-      return `${acc} \n${' '.repeat(space)}${e.name}: {${fn(e.value, space + 1)}\n${' '.repeat(space)}}`;
-    },
-  },
-  {
-    type: 'added',
-    check: (type) => type === 'added',
-    process: (e, acc, lvl) => {
-      const space = (lvl === 0) ? 2 : lvl + 1;
-      return `${acc}\n${' '.repeat(space)}+ ${e.name}: ${stringify(e.value, space)}`;
-    },
-  },
-  {
-    type: 'deleted',
-    check: (type) => type === 'deleted',
-    process: (e, acc, lvl) => {
-      const space = (lvl === 0) ? 2 : lvl + 1;
-      return `${acc}\n${' '.repeat(space)}- ${e.name}: ${stringify(e.value, space)}`;
-    },
-  },
-  {
-    type: 'changed',
-    check: (type) => type === 'changed',
-    process: (e, acc, lvl) => `${acc}\n${' '.repeat(lvl + 1)}- ${e.name}: ${stringify(e.value[0], lvl + 1)}\n${' '.repeat(lvl + 1)}+ ${e.name}: ${stringify(e.value[1], lvl + 1)}`,
-  },
-  {
-    type: 'notModified',
-    check: (type) => type === 'notModified',
-    process: (e, acc, lvl) => `${acc} \n${' '.repeat(lvl + 3)}${e.name}: ${e.value}`,
-  },
-];
+const renderDefault = (ast) => {
+  const iter = (data, lvl = 1) => {
+    const result = data.reduce((acc, e) => {
+      const tab = ' '.repeat(lvl + 1);
+      const { type, name, value } = e;
 
-const renderDefault = (data) => {
-  const render = (data1, lvl = 0) => data1.reduce((acc, e) => {
-    const { process } = _.find(types, ({ check }) => check(e.type));
-    return process(e, acc, lvl, render);
-  }, '');
-  const result = render(data);
-  return `{${result}\n}`;
+      switch (type) {
+        case 'added':
+          return `${acc}\n${tab}+ ${name}: ${stringify(value, lvl, iter)}`;
+        case 'deleted':
+          return `${acc}\n${tab}- ${name}: ${stringify(value, lvl, iter)}`;
+        case 'notModified':
+          return `${acc}\n${tab}  ${name}: ${stringify(value, lvl, iter)}`;
+        case 'changed':
+          return `${acc}\n${tab}- ${name}: ${stringify(value[0], lvl, iter)}\n${tab}+ ${name}: ${stringify(value[1], lvl, iter)}`;
+        case 'nested':
+          return `${acc}\n${tab}  ${name}: {${stringify(value, lvl, iter)}\n  ${tab}}`;
+        default:
+          throw new Error('no parser for this type');
+      }
+    }, '');
+    return result;
+  };
+  return `{${iter(ast)}\n}`;
 };
 
 

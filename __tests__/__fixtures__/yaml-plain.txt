@@ -1,0 +1,6 @@
+Property 'follow' was changed from 'false' to 'true'
+Property 'host' was deleted
+Property 'proxy' was deleted
+Property 'timeout' was deleted
+Property 'setting1' was added with value: Value1
+Property 'setting3' was added with value: [complex value]
