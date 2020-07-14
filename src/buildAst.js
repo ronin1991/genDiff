@@ -3,8 +3,8 @@ import _ from 'lodash';
 const types = [
   {
     type: 'nested',
-    check: (firstData, secondData, key) => (firstData[key] instanceof Object)
-      && (secondData[key] instanceof Object),
+    check: (firstData, secondData, key) => (_.isObject(firstData[key]))
+      && (_.isObject(secondData[key])),
     process: (firstObj, secondObj, fn) => fn(firstObj, secondObj),
   },
 
@@ -18,7 +18,7 @@ const types = [
     type: 'changed',
     check: (firstValue, secondValue, key) => (_.has(firstValue, key) && _.has(secondValue, key))
       && (firstValue[key] !== secondValue[key]),
-    process: (firstValue, secondValue) => [firstValue, secondValue],
+    process: (firstValue, secondValue) => ({ oldValue: firstValue, newValue: secondValue }),
   },
 
   {
@@ -28,7 +28,7 @@ const types = [
   },
 
   {
-    type: 'notModified',
+    type: 'unchanged',
     check: (firstValue, secondValue, key) => _.has(firstValue, key) && _.has(secondValue, key)
       && firstValue[key] === secondValue[key],
     process: (firstValue) => firstValue,
@@ -50,6 +50,7 @@ const buildAst = (firstData = {}, secondData = {}) => {
       value,
     };
   });
+
   return result;
 };
 

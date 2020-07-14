@@ -10,9 +10,7 @@
   "group1": {
     "baz": "baz",
     "foo": "bar",
-    "nest": {
-      "key": "value"
-    }
+    "nest": "value"
   },
   "group2": {
     "abc": 12345

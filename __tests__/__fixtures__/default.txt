@@ -20,9 +20,7 @@
       - baz: baz
       + baz: bars
         foo: bar
-      - nest: {
-            key: value
-        }
+      - nest: value
       + nest: str
     }
   - group2: {
