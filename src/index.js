@@ -15,7 +15,6 @@ const genDiff = (firstFilePath, secondFilePath, formatOutput) => {
   const firstData = getData(firstFilePath);
   const secondData = getData(secondFilePath);
   const ast = buildAst(firstData, secondData);
-
   const render = getRender(formatOutput);
   return render(ast);
 };

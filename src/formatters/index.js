@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import renderDefault from './formater-default';
-import renderPlain from './formater-plain';
-import renderJson from './formater-json';
+import renderDefault from './formatter-default';
+import renderPlain from './formatter-plain';
+import renderJson from './formatter-json';
 
 const formatList = {
   plain: renderPlain,

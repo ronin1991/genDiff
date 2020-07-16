@@ -40,7 +40,6 @@ const renderDefault = (ast) => {
     }, '');
     return result;
   };
-  console.log(`{${iter(ast)}\n}`);
   return `{${iter(ast)}\n}`;
 };
 

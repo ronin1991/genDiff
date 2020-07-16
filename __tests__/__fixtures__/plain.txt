@@ -5,6 +5,6 @@ Property 'common.follow' was added with value: 'false'
 Property 'common.setting4' was added with value: 'blah blah'
 Property 'common.setting5' was added with value: '[complex value]'
 Property 'group1.baz' was changed from 'baz' to 'bars'
-Property 'group1.nest' was changed from '[complex value]' to 'str'
+Property 'group1.nest' was changed from 'value' to 'str'
 Property 'group2' was deleted
 Property 'group3' was added with value: [complex value]

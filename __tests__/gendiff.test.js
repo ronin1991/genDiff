@@ -25,6 +25,8 @@ const secondIni = getFixturePath('second.ini');
 
 
 const outDefault = fs.readFileSync(getFixturePath('default.txt'), 'utf-8');
+const outPlain = fs.readFileSync(getFixturePath('plain.txt'), 'utf-8');
+const outJson = fs.readFileSync(getFixturePath('out.txt'), 'utf-8');
 
 test.each([
   [firstJson, secondJson, outDefault],
@@ -35,21 +37,21 @@ test.each([
 });
 
 
-// test.each([
-//   [firstJson, secondJson, outPlain],
-//   [firstYaml, secondYaml, outPlain],
-//   [firstIni, secondIni, outPlain],
-// ])('outIni(%s, %s)', (firstFile, secondFile, expected) => {
-//   expect(gendiff(firstFile, secondFile, 'plain')).toBe(expected);
-// });
+test.each([
+  [firstJson, secondJson, outPlain],
+  [firstYaml, secondYaml, outPlain],
+  [firstIni, secondIni, outPlain],
+])('outIni(%s, %s)', (firstFile, secondFile, expected) => {
+  expect(gendiff(firstFile, secondFile, 'plain')).toBe(expected);
+});
 
-// test.each([
-//   [firstJson, secondJson, outJson],
-//   [firstYaml, secondYaml, outJson],
-//   [firstIni, secondIni, outJson],
-// ])('outJson(%s, %s)', (firstFile, secondFile, expected) => {
-//   expect(gendiff(firstFile, secondFile, 'json')).toBe(expected);
-// });
+test.each([
+  [firstJson, secondJson, outJson],
+  [firstYaml, secondYaml, outJson],
+  [firstIni, secondIni, outJson],
+])('outJson(%s, %s)', (firstFile, secondFile, expected) => {
+  expect(gendiff(firstFile, secondFile, 'json')).toBe(expected);
+});
 
 // describe.each(formats)('Test %s format', (format) => {
 //   it.each(filesByExtension)('should work with %s extension', (_, before, after) => {}}))
