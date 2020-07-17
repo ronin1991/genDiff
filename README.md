@@ -9,8 +9,13 @@
 [![asciicast](https://asciinema.org/a/82Ey8eO9Z9f4RdtQVnJOfPxya.svg)](https://asciinema.org/a/82Ey8eO9Z9f4RdtQVnJOfPxya)
 
 ## Usage
-  #### gendiff [formatOutput[plain, json, default]] \<first file\> \<second file>
+  #### gendiff [formatOutput [plain, json, default]] \<first file\> \<second file>
 
 ## Json
-  #### gendiff first.json second.json
-  [![asciicast](https://asciinema.org/a/Wd01xAZORjWXMbvyIP60Lua5u.svg)](https://asciinema.org/a/Wd01xAZORjWXMbvyIP60Lua5u)
+  [![asciicast](https://asciinema.org/a/EaED2d8GtE0GKL9HHZPfZYlv5.svg)](https://asciinema.org/a/EaED2d8GtE0GKL9HHZPfZYlv5)
+
+## Ini
+  [![asciicast](https://asciinema.org/a/7CGFLKnbLZXPrfRoRma5Crd8k.svg)](https://asciinema.org/a/7CGFLKnbLZXPrfRoRma5Crd8k)
+
+## Yaml
+[![asciicast](https://asciinema.org/a/JOWjvJiYWiHuCjwke6x4iMrOk.svg)](https://asciinema.org/a/JOWjvJiYWiHuCjwke6x4iMrOk)
