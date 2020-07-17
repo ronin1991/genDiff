@@ -1,6 +1,6 @@
 #!/usr/bin/env  node
 import program from 'commander';
-import compareFiles from '..';
+import gendiff from '../src/index.js';
 
 program
   .version('0.0.1', '-v, --VERSION', 'new version message')
@@ -8,10 +8,10 @@ program
   .arguments('<firstConfig> <secondConfig>')
   .option('-f, --format [type]', 'output format', 'default')
   .action((firstPathToFile, secondPathToFile) => {
-    console.log(compareFiles(firstPathToFile, secondPathToFile, program.format));
+    console.log(gendiff(firstPathToFile, secondPathToFile, program.format));
   });
 
 
 program.parse(process.argv);
 
-export default compareFiles;
+export default gendiff;

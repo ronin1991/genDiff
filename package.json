@@ -10,11 +10,8 @@
     "node": ">=14"
   },
   "bin": {
-    "gendiff": "dist/bin/gendiff.js"
+    "gendiff": "bin/gendiff.js"
   },
-  "files": [
-    "dist"
-  ],
   "type": "module",
   "jest": {
     "testEnvironment": "node",
