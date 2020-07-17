@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import buildAst from './buildAst';
-import getParse from './parse';
-import getRender from './formatters';
+import buildAst from './buildAst.js';
+import getParse from './parse.js';
+import getRender from './formatters/index.js';
 
 const getData = (filePath) => {
   const data = fs.readFileSync(filePath, 'utf-8');
