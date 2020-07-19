@@ -14,14 +14,13 @@ const getFixturePath = (fileName) => path.join(__dirname, '__fixtures__', fileNa
 const readFile = (format) => fs.readFileSync(getFixturePath(`${format}.txt`), 'utf-8');
 
 const filesByExtension = (extensions) => extensions
-  .map((extension) => [`${getFixturePath(`before${extension}`)}`, `${getFixturePath(`after${extension}`)}`]);
+  .map((extension) => [`${extension.slice(1)}`, `${getFixturePath(`before${extension}`)}`, `${getFixturePath(`after${extension}`)}`]);
 
 const formats = ['json', 'default', 'plain'];
 const extensions = ['.json', '.ini', '.yaml'];
 
-
 describe.each(formats)('Test %s format', (format) => {
-  test.each(filesByExtension(extensions))('should work with %s ', (before, after) => {
+  test.each(filesByExtension(extensions))('should work with %s extensions', (_, before, after) => {
     expect(gendiff(before, after, format)).toBe(readFile(format));
   });
 });

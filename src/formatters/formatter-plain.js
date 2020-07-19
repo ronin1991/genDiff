@@ -1,5 +1,10 @@
 import _ from 'lodash';
 
+const getValue = (value) => {
+  const result = (_.isObject(value)) ? '[complex value]' : value;
+  return result;
+};
+
 const types = {
   nested: (node, acc, objName, render) => {
     const name = (objName) ? `${objName}.${node.name}` : node.name;
@@ -16,8 +21,8 @@ const types = {
     return result;
   },
   changed: (node, acc, objName) => {
-    const oldValue = (_.isObject(node.value.oldValue)) ? '[complex value]' : node.value.oldValue;
-    const newValue = (_.isObject(node.value.newValue)) ? '[complex value]' : node.value.newValue;
+    const oldValue = getValue(node.value.oldValue);
+    const newValue = getValue(node.value.newValue);
     return (objName) ? `${acc}\nProperty '${objName}.${node.name}' was changed from '${oldValue}' to '${newValue}'`
       : `${acc}\nProperty '${node.name}' was changed from '${oldValue}' to '${newValue}'`;
   },
