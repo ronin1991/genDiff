@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const tab = ' '.repeat(2);
+const tab = '  ';
 const stringify = (value, lvl, render) => {
   if (Array.isArray(value)) {
     return `${render(value, lvl)}`;
