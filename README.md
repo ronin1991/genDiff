@@ -5,9 +5,15 @@
 ## Generator of configuration files' differences
 
 ## Install
-  ##### $ git clone https://github.com/ronin1991/frontend-project-lvl2.git
-  ##### $ make install
-  ##### $ sudo npm link
+```sh
+  $ git clone https://github.com/ronin1991/frontend-project-lvl2.git
+```
+```sh
+  $ make install
+```
+```sh
+  $ sudo npm link
+```
 [![asciicast](https://asciinema.org/a/82Ey8eO9Z9f4RdtQVnJOfPxya.svg)](https://asciinema.org/a/82Ey8eO9Z9f4RdtQVnJOfPxya)
 
 ## Usage
