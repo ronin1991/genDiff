@@ -11,7 +11,9 @@
 [![asciicast](https://asciinema.org/a/82Ey8eO9Z9f4RdtQVnJOfPxya.svg)](https://asciinema.org/a/82Ey8eO9Z9f4RdtQVnJOfPxya)
 
 ## Usage
-  #### gendiff [formatOutput [plain, json, default]] \<first file\> \<second file>
+```sh
+  $ gendiff [formatOutput [plain, json, default]] \<first file\> \<second file>
+```
 
 ## Json
   [![asciicast](https://asciinema.org/a/EaED2d8GtE0GKL9HHZPfZYlv5.svg)](https://asciinema.org/a/EaED2d8GtE0GKL9HHZPfZYlv5)

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const getValue = (value) => {
+const stringify = (value) => {
   const result = (_.isObject(value)) ? '[complex value]' : value;
   return result;
 };
@@ -21,8 +21,8 @@ const types = {
     return result;
   },
   changed: (node, acc, objName) => {
-    const oldValue = getValue(node.value.oldValue);
-    const newValue = getValue(node.value.newValue);
+    const oldValue = stringify(node.value.oldValue);
+    const newValue = stringify(node.value.newValue);
     return (objName) ? `${acc}\nProperty '${objName}.${node.name}' was changed from '${oldValue}' to '${newValue}'`
       : `${acc}\nProperty '${node.name}' was changed from '${oldValue}' to '${newValue}'`;
   },

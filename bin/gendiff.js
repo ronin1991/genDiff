@@ -9,9 +9,4 @@ program
   .option('-f, --format [type]', 'output format', 'default')
   .action((firstPathToFile, secondPathToFile) => {
     console.log(gendiff(firstPathToFile, secondPathToFile, program.format));
-  });
-
-
-program.parse(process.argv);
-
-export default gendiff;
+  }).program.parse(process.argv);

@@ -1,11 +1,11 @@
 import _ from 'lodash';
 
-const types = [
+const mapper = [
   {
     type: 'nested',
     check: (firstData, secondData, key) => (_.isObject(firstData[key]))
       && (_.isObject(secondData[key])),
-    process: (firstObj, secondObj, fn) => fn(firstObj, secondObj),
+    process: (firstObj, secondObj, getValue) => getValue(firstObj, secondObj),
   },
 
   {
@@ -40,7 +40,7 @@ const buildAst = (firstData = {}, secondData = {}) => {
   const uniqKeys = _.union(Object.keys(firstData), Object.keys(secondData));
 
   const result = uniqKeys.map((key) => {
-    const { type, process } = _.find(types,
+    const { type, process } = _.find(mapper,
       ({ check }) => check(firstData, secondData, key));
 
     const value = process(firstData[key], secondData[key], buildAst);
