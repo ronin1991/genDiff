@@ -7,24 +7,24 @@ const stringify = (value) => {
 
 const types = {
   nested: (node, acc, objName, render) => {
-    const name = (objName) ? `${objName}.${node.name}` : node.name;
+    const name = (objName) ? `${objName}.${node.key}` : node.key;
     return `${acc}${render(node.value, name)}`;
   },
   added: (node, acc, objName) => {
     const value = (_.isObject(node.value)) ? '[complex value]' : `${node.value}`;
-    return (objName) ? `${acc}\nProperty '${objName}.${node.name}' was added with value: '${value}'`
-      : `${acc}\nProperty '${node.name}' was added with value: ${value}`;
+    return (objName) ? `${acc}\nProperty '${objName}.${node.key}' was added with value: '${value}'`
+      : `${acc}\nProperty '${node.key}' was added with value: ${value}`;
   },
   deleted: (node, acc, objName) => {
-    const result = (objName) ? `${acc}Property '${objName}.${node.name}' was deleted`
-      : `${acc}\nProperty '${node.name}' was deleted`;
+    const result = (objName) ? `${acc}Property '${objName}.${node.key}' was deleted`
+      : `${acc}\nProperty '${node.key}' was deleted`;
     return result;
   },
   changed: (node, acc, objName) => {
     const oldValue = stringify(node.value.oldValue);
     const newValue = stringify(node.value.newValue);
-    return (objName) ? `${acc}\nProperty '${objName}.${node.name}' was changed from '${oldValue}' to '${newValue}'`
-      : `${acc}\nProperty '${node.name}' was changed from '${oldValue}' to '${newValue}'`;
+    return (objName) ? `${acc}\nProperty '${objName}.${node.key}' was changed from '${oldValue}' to '${newValue}'`
+      : `${acc}\nProperty '${node.key}' was changed from '${oldValue}' to '${newValue}'`;
   },
   unchanged: (e, acc) => `${acc}`,
 };
@@ -34,6 +34,7 @@ const renderPlain = (ast) => {
     const process = types[node.type];
     return process(node, acc, objName, render);
   }, '');
+
   return render(ast).trim();
 };
 
