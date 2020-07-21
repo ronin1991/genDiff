@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import buildAst from './buildAst.js';
 import getParse from './parse.js';
-import getRender from './formatters/index.js';
+import render from './formatters/index.js';
 
 const getData = (filePath) => {
   const data = fs.readFileSync(filePath, 'utf-8');
@@ -15,8 +15,9 @@ const genDiff = (firstFilePath, secondFilePath, formatOutput) => {
   const firstData = getData(firstFilePath);
   const secondData = getData(secondFilePath);
   const ast = buildAst(firstData, secondData);
-  const render = getRender(formatOutput);
-  return render(ast);
+  // const render = getRender(formatOutput);
+  // return render(ast);
+  return render(ast, formatOutput);
 };
 
 export default genDiff;

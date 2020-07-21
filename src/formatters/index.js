@@ -3,17 +3,18 @@ import renderDefault from './formatter-default.js';
 import renderPlain from './formatter-plain.js';
 import renderJson from './formatter-json.js';
 
-const formatList = {
+const formatters = {
   plain: renderPlain,
   json: renderJson,
   default: renderDefault,
 };
 
-const getRender = (format) => {
-  if (!_.has(formatList, format)) {
-    throw new Error('no such format in the formatList');
-  }
-  return formatList[format];
-};
+// const getRender = (format) => {
+//   if (!_.has(formatters, format)) {
+//     throw new Error('no such format in the formatters');
+//   }
+//   return formatters[format];
+// };
+const render = (ast, format) => formatters[format](ast);
 
-export default getRender;
+export default render;

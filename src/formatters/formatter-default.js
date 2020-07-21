@@ -2,6 +2,10 @@ import _ from 'lodash';
 
 const tab = '  ';
 const stringify = (value, depth, render) => {
+  if (Array.isArray(value)) {
+    return `${render(value, depth)}`;
+  }
+
   if (_.isObject(value)) {
     const entries = Object.entries(value);
 
@@ -11,29 +15,25 @@ const stringify = (value, depth, render) => {
     }, '');
   }
 
-  if (Array.isArray(value)) {
-    return `${render(value, depth)}`;
-  }
-
   return value;
 };
 
 const renderDefault = (ast) => {
-  const iter = (data, lvl = 1) => {
+  const iter = (data, depth = 1) => {
     const result = data.reduce((acc, node) => {
       const { type, name, value } = node;
 
       switch (type) {
         case 'added':
-          return `${acc}\n${tab.repeat(lvl)}+ ${name}: ${stringify(value, lvl, iter)}`;
+          return `${acc}\n${tab.repeat(depth)}+ ${name}: ${stringify(value, depth, iter)}`;
         case 'deleted':
-          return `${acc}\n${tab.repeat(lvl)}- ${name}: ${stringify(value, lvl, iter)}`;
+          return `${acc}\n${tab.repeat(depth)}- ${name}: ${stringify(value, depth, iter)}`;
         case 'unchanged':
-          return `${acc}\n${tab.repeat(lvl)}  ${name}: ${stringify(value, lvl, iter)}`;
+          return `${acc}\n${tab.repeat(depth)}  ${name}: ${stringify(value, depth, iter)}`;
         case 'changed':
-          return `${acc}\n${tab.repeat(lvl)}- ${name}: ${stringify(value.oldValue, lvl, iter)}\n${tab.repeat(lvl)}+ ${name}: ${stringify(value.newValue, lvl, iter)}`;
+          return `${acc}\n${tab.repeat(depth)}- ${name}: ${stringify(value.oldValue, depth, iter)}\n${tab.repeat(depth)}+ ${name}: ${stringify(value.newValue, depth, iter)}`;
         case 'nested':
-          return `${acc}\n${tab.repeat(lvl)}  ${name}: {${stringify(value, lvl + 2, iter)}\n${tab.repeat(lvl + 1)}}`;
+          return `${acc}\n${tab.repeat(depth)}  ${name}: {${stringify(value, depth + 2, iter)}\n${tab.repeat(depth + 1)}}`;
         default:
           throw new Error('no parser for this type');
       }
