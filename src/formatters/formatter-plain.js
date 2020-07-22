@@ -1,42 +1,33 @@
-import _ from 'lodash';
-
-const stringify = (value) => {
-  const result = (_.isObject(value)) ? '[complex value]' : value;
-  return result;
+const getValue = (value) => {
+  switch (typeof value) {
+    case 'object':
+      return '[complex value]';
+    case 'string':
+      return `'${value}'`;
+    default:
+      return value;
+  }
 };
 
-const types = {
-  nested: (node, acc, objName, render) => {
-    const name = (objName) ? `${objName}.${node.key}` : node.key;
-    return `${acc}${render(node.value, name)}`;
-  },
-  added: (node, acc, objName) => {
-    const value = (_.isObject(node.value)) ? '[complex value]' : `${node.value}`;
-    return (objName) ? `${acc}\nProperty '${objName}.${node.key}' was added with value: '${value}'`
-      : `${acc}\nProperty '${node.key}' was added with value: ${value}`;
-  },
-  deleted: (node, acc, objName) => {
-    const result = (objName) ? `${acc}Property '${objName}.${node.key}' was deleted`
-      : `${acc}\nProperty '${node.key}' was deleted`;
-    return result;
-  },
-  changed: (node, acc, objName) => {
-    const oldValue = stringify(node.value.oldValue);
-    const newValue = stringify(node.value.newValue);
-    return (objName) ? `${acc}\nProperty '${objName}.${node.key}' was changed from '${oldValue}' to '${newValue}'`
-      : `${acc}\nProperty '${node.key}' was changed from '${oldValue}' to '${newValue}'`;
-  },
-  unchanged: (e, acc) => `${acc}`,
-};
+const plainFormatter = (ast, property = '') => ast
+  .map((node) => {
+    const newProperty = property === '' ? node.key : `${property}.${node.key}`;
+    switch (node.type) {
+      case 'added':
+        return `Property '${newProperty}' was added with value: ${getValue(node.value)}`;
+      case 'deleted':
+        return `Property '${newProperty}' was deleted`;
+      case 'nested':
+        return plainFormatter(node.value, newProperty);
+      case 'changed':
+        return `Property '${newProperty}' was changed from ${getValue(node.value.oldValue)} to ${getValue(node.value.newValue)}`;
+      case 'unchanged':
+        return null;
+      default:
+        throw new Error(`Invalid status '${node.status}'. Please check!`);
+    }
+  })
+  .filter((node) => node !== null)
+  .join('\n');
 
-const renderPlain = (ast) => {
-  const render = (data, objName) => data.reduce((acc, node) => {
-    const process = types[node.type];
-    return process(node, acc, objName, render);
-  }, '');
-
-  return render(ast).trim();
-};
-
-
-export default renderPlain;
+export default (ast) => plainFormatter(ast);

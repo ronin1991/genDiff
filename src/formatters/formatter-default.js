@@ -14,29 +14,25 @@ const stringify = (_value, depth) => {
   return `${string}`;
 };
 
-const renderDefault = (ast) => {
-  const iter = (data, depth = 1) => {
-    const result = data.reduce((acc, node) => {
-      const { type, key, value } = node;
-      switch (type) {
-        case 'added':
-          return `${acc}\n${getIndent(depth)}+ ${key}: ${stringify(value, depth, iter)}`;
-        case 'deleted':
-          return `${acc}\n${getIndent(depth)}- ${key}: ${stringify(value, depth, iter)}`;
-        case 'unchanged':
-          return `${acc}\n${getIndent(depth)}  ${key}: ${stringify(value, depth, iter)}`;
-        case 'changed':
-          return `${acc}\n${getIndent(depth)}- ${key}: ${stringify(value.oldValue, depth, iter)}\n${getIndent(depth)}+ ${key}: ${stringify(value.newValue, depth, iter)}`;
-        case 'nested':
-          return `${acc}\n${getIndent(depth)}  ${key}: {${iter(value, depth + 2, iter)}\n${getIndent(depth + 1)}}`;
-        default:
-          throw new Error('no parser for this type');
-      }
-    }, '');
-    return result;
-  };
-  return `{${iter(ast)}\n}`;
-};
+const renderDefault = (ast, depth = 1) => ast
+  .map((node) => {
+    const getValue = (value) => `${node.key}: ${stringify(value, depth)}`;
+
+    switch (node.type) {
+      case 'added':
+        return `${getIndent(depth)}+ ${getValue(node.value)}`;
+      case 'deleted':
+        return `${getIndent(depth)}- ${getValue(node.value)}`;
+      case 'unchanged':
+        return `${getIndent(depth)}  ${getValue(node.value)}`;
+      case 'changed':
+        return `${getIndent(depth)}- ${getValue(node.value.oldValue)}\n${getIndent(depth)}+ ${getValue(node.value.newValue)}`;
+      case 'nested':
+        return `${getIndent(depth)}  ${node.key}: {\n${renderDefault(node.value, depth + 2)}\n${getIndent(depth + 1)}}`;
+      default:
+        throw new Error('no parser for this type');
+    }
+  }).join('\n');
 
 
-export default renderDefault;
+export default (ast) => `{\n${renderDefault(ast)}\n}`;
