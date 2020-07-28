@@ -4,7 +4,7 @@ const mapper = [
   {
     check: (firstData, secondData, key) => (_.isObject(firstData[key]))
       && (_.isObject(secondData[key])),
-    process: (firstObj, secondObj, getValue, key) => ({ key, type: 'nested', value: getValue(firstObj, secondObj) }),
+    process: (firstObj, secondObj, getValue, key) => ({ key, type: 'nested', children: getValue(firstObj, secondObj) }),
   },
 
   {

@@ -1,4 +1,4 @@
-import renderDefault from './formatter-default.js';
+import renderDefault from './formatter-pretty.js';
 import renderPlain from './formatter-plain.js';
 import renderJson from './formatter-json.js';
 

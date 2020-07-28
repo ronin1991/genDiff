@@ -18,7 +18,7 @@ const plainFormatter = (ast, property = '') => ast
       case 'deleted':
         return `Property '${newProperty}' was deleted`;
       case 'nested':
-        return plainFormatter(node.value, newProperty);
+        return plainFormatter(node.children, newProperty);
       case 'changed':
         return `Property '${newProperty}' was changed from ${getValue(node.value.oldValue)} to ${getValue(node.value.newValue)}`;
       case 'unchanged':

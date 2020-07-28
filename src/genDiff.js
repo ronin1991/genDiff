@@ -6,8 +6,8 @@ import render from './formatters/index.js';
 
 const getData = (filePath) => {
   const data = fs.readFileSync(filePath, 'utf-8');
-  const formatFile = path.extname(filePath).slice(1);
-  const parse = getParser(formatFile);
+  const format = path.extname(filePath).slice(1);
+  const parse = getParser(format);
   return parse(data);
 };
 

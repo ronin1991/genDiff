@@ -29,7 +29,7 @@ const renderDefault = (ast, depth = 1) => ast
       case 'changed':
         return `${indent}- ${getValue(node.value.oldValue)}\n${indent}+ ${getValue(node.value.newValue)}`;
       case 'nested':
-        return `${indent}  ${node.key}: {\n${renderDefault(node.value, depth + 2)}\n${getIndent(depth + 1)}}`;
+        return `${indent}  ${node.key}: {\n${renderDefault(node.children, depth + 2)}\n${getIndent(depth + 1)}}`;
       default:
         throw new Error('no parser for this type');
     }

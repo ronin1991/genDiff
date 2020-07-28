@@ -31,7 +31,7 @@ const getParser = (format) => {
     case 'yaml':
       return yaml.safeLoad;
     default:
-      throw new Error('no parser for this type');
+      throw new Error(`Unknown format ${format}`);
   }
 };
 
