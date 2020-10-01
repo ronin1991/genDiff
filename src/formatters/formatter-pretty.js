@@ -31,7 +31,7 @@ const renderDefault = (ast, depth = 1) => ast
       case 'nested':
         return `${indent}  ${node.key}: {\n${renderDefault(node.children, depth + 2)}\n${getIndent(depth + 1)}}`;
       default:
-        throw new Error('no parser for this type');
+        throw new Error(`no parser for this ${node.type}`);
     }
   }).join('\n');
 

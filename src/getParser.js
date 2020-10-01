@@ -5,12 +5,12 @@ import _ from 'lodash';
 const isNumber = (value) => !Number.isNaN(Number(value));
 
 
-const formatIniParse = (data) => {
+const formatValueIni = (data) => {
   const keyValue = Object.entries(data);
 
   return keyValue.reduce((acc, [key, value]) => {
     if (_.isObject(value)) {
-      return { ...acc, [key]: formatIniParse(value) };
+      return { ...acc, [key]: formatValueIni(value) };
     }
 
     if (typeof value !== 'boolean' && isNumber(value)) {
@@ -27,7 +27,7 @@ const getParser = (format) => {
     case 'json':
       return JSON.parse;
     case 'ini':
-      return _.flowRight(formatIniParse, ini.parse);
+      return _.flowRight(formatValueIni, ini.parse);
     case 'yaml':
       return yaml.safeLoad;
     default:

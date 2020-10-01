@@ -1,4 +1,4 @@
-const getValue = (value) => {
+const stringify = (value) => {
   switch (typeof value) {
     case 'object':
       return '[complex value]';
@@ -9,18 +9,18 @@ const getValue = (value) => {
   }
 };
 
-const plainFormatter = (ast, property = '') => ast
+const renderPlain = (ast, property = '') => ast
   .map((node) => {
     const newProperty = property === '' ? node.key : `${property}.${node.key}`;
     switch (node.type) {
       case 'added':
-        return `Property '${newProperty}' was added with value: ${getValue(node.value)}`;
+        return `Property '${newProperty}' was added with value: ${stringify(node.value)}`;
       case 'deleted':
         return `Property '${newProperty}' was deleted`;
       case 'nested':
-        return plainFormatter(node.children, newProperty);
+        return renderPlain(node.children, newProperty);
       case 'changed':
-        return `Property '${newProperty}' was changed from ${getValue(node.value.oldValue)} to ${getValue(node.value.newValue)}`;
+        return `Property '${newProperty}' was changed from ${stringify(node.value.oldValue)} to ${stringify(node.value.newValue)}`;
       case 'unchanged':
         return null;
       default:
@@ -30,4 +30,4 @@ const plainFormatter = (ast, property = '') => ast
   .filter((node) => node !== null)
   .join('\n');
 
-export default (ast) => plainFormatter(ast);
+export default (ast) => renderPlain(ast);
