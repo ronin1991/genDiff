@@ -1,6 +1,7 @@
 #!/usr/bin/env  node
 import program from 'commander';
 import gendiff from '../src/index.js';
+// import
 
 program
   .version('1.0.0', '-v, --VERSION', 'new version message')

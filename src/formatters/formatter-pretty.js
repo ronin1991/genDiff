@@ -16,18 +16,18 @@ const stringify = (nodeValue, depth) => {
 
 const renderDefault = (ast, depth = 0) => ast
   .map((node) => {
-    const getValue = (value) => `${node.key}: ${stringify(value, depth + 1)}`;
+    const prepareFormattedResult = (key, value) => `${key}: ${stringify(value, depth + 1)}`;
     const indent = getIndent(depth);
 
     switch (node.type) {
       case 'added':
-        return `${indent}  + ${getValue(node.value)}`;
+        return `${indent}  + ${prepareFormattedResult(node.key, node.value)}`;
       case 'deleted':
-        return `${indent}  - ${getValue(node.value)}`;
+        return `${indent}  - ${prepareFormattedResult(node.key, node.value)}`;
       case 'unchanged':
-        return `${indent}    ${getValue(node.value)}`;
+        return `${indent}    ${prepareFormattedResult(node.key, node.value)}`;
       case 'changed':
-        return `${indent}  - ${getValue(node.value.oldValue)}\n${indent}  + ${getValue(node.value.newValue)}`;
+        return `${indent}  - ${prepareFormattedResult(node.key, node.oldValue)}\n${indent}  + ${prepareFormattedResult(node.key, node.newValue)}`;
       case 'nested':
         return `${indent}    ${node.key}: {\n${renderDefault(node.children, depth + 1)}\n${getIndent(depth + 1)}}`;
       default:

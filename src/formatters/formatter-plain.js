@@ -20,7 +20,7 @@ const renderPlain = (ast, property = '') => ast
       case 'nested':
         return renderPlain(node.children, newProperty);
       case 'changed':
-        return `Property '${newProperty}' was changed from ${stringify(node.value.oldValue)} to ${stringify(node.value.newValue)}`;
+        return `Property '${newProperty}' was changed from ${stringify(node.oldValue)} to ${stringify(node.newValue)}`;
       case 'unchanged':
         return null;
       default:
