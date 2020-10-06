@@ -2,23 +2,23 @@ import _ from 'lodash';
 
 const mapper = [
   {
-    check: (firstValue, secondValue, key) => !_.has(firstValue, key),
+    check: ({ firstData, key }) => !_.has(firstData, key),
     buildLeaf: (_firstValue, secondValue) => ({ type: 'added', value: secondValue }),
   },
 
   {
-    check: (firstData, secondData, key) => !(_.has(secondData, key)),
+    check: ({ secondData, key }) => !(_.has(secondData, key)),
     buildLeaf: (firstValue) => ({ type: 'deleted', value: firstValue }),
   },
 
   {
-    check: (firstData, secondData, key) => (_.isObject(firstData[key]))
+    check: ({ firstData, secondData, key }) => (_.isObject(firstData[key]))
       && (_.isObject(secondData[key])),
     buildLeaf: (firstObj, secondObj, getFormatValue, key) => ({ key, type: 'nested', children: getFormatValue(firstObj, secondObj) }),
   },
 
   {
-    check: (firstValue, secondValue, key) => (!_.isEqual(firstValue[key], secondValue[key])),
+    check: ({ firstData, secondData, key }) => (!_.isEqual(firstData[key], secondData[key])),
     buildLeaf: (firstValue, secondValue) => ({ type: 'changed', oldValue: firstValue, newValue: secondValue }),
   },
 
@@ -33,7 +33,7 @@ const buildAst = (firstData, secondData) => {
   const uniqKeys = _.union(Object.keys(firstData), Object.keys(secondData));
 
   return uniqKeys.map((key) => {
-    const { buildLeaf } = _.find(mapper, ({ check }) => check(firstData, secondData, key));
+    const { buildLeaf } = _.find(mapper, ({ check }) => check({ firstData, secondData, key }));
 
     return {
       key,
