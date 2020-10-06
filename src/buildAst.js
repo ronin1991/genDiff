@@ -3,28 +3,30 @@ import _ from 'lodash';
 const mapper = [
   {
     check: ({ firstData, key }) => !_.has(firstData, key),
-    buildLeaf: (_firstValue, secondValue) => ({ type: 'added', value: secondValue }),
+    buildLeaf: ({ key, secondData }) => ({ type: 'added', value: secondData[key] }),
   },
 
   {
     check: ({ secondData, key }) => !(_.has(secondData, key)),
-    buildLeaf: (firstValue) => ({ type: 'deleted', value: firstValue }),
+    buildLeaf: ({ key, firstData }) => ({ type: 'deleted', value: firstData[key] }),
   },
 
   {
     check: ({ firstData, secondData, key }) => (_.isObject(firstData[key]))
       && (_.isObject(secondData[key])),
-    buildLeaf: (firstObj, secondObj, getFormatValue, key) => ({ key, type: 'nested', children: getFormatValue(firstObj, secondObj) }),
+    buildLeaf: ({
+      key, firstData, secondData, buildAst,
+    }) => ({ key, type: 'nested', children: buildAst(firstData[key], secondData[key]) }),
   },
 
   {
     check: ({ firstData, secondData, key }) => (!_.isEqual(firstData[key], secondData[key])),
-    buildLeaf: (firstValue, secondValue) => ({ type: 'changed', oldValue: firstValue, newValue: secondValue }),
+    buildLeaf: ({ key, firstData, secondData }) => ({ type: 'changed', oldValue: firstData[key], newValue: secondData[key] }),
   },
 
   {
     check: () => true,
-    buildLeaf: (firstValue) => ({ type: 'unchanged', value: firstValue }),
+    buildLeaf: ({ key, firstData }) => ({ type: 'unchanged', value: firstData[key] }),
   },
 ];
 
@@ -37,7 +39,9 @@ const buildAst = (firstData, secondData) => {
 
     return {
       key,
-      ...buildLeaf(firstData[key], secondData[key], buildAst, key),
+      ...buildLeaf({
+        key, firstData, secondData, buildAst,
+      }),
     };
   });
 };
