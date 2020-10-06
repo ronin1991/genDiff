@@ -2,30 +2,28 @@ import _ from 'lodash';
 
 const mapper = [
   {
+    check: (firstValue, secondValue, key) => !_.has(firstValue, key),
+    buildLeaf: (_firstValue, secondValue) => ({ type: 'added', value: secondValue }),
+  },
+
+  {
+    check: (firstData, secondData, key) => !(_.has(secondData, key)),
+    buildLeaf: (firstValue) => ({ type: 'deleted', value: firstValue }),
+  },
+
+  {
     check: (firstData, secondData, key) => (_.isObject(firstData[key]))
       && (_.isObject(secondData[key])),
     buildLeaf: (firstObj, secondObj, getFormatValue, key) => ({ key, type: 'nested', children: getFormatValue(firstObj, secondObj) }),
   },
 
   {
-    check: (firstData, secondData, key) => (_.has(firstData, key) && !(_.has(secondData, key))),
-    buildLeaf: (firstValue) => ({ type: 'deleted', value: firstValue }),
-  },
-
-  {
-    check: (firstValue, secondValue, key) => (_.has(firstValue, key) && _.has(secondValue, key))
-      && (firstValue[key] !== secondValue[key]),
+    check: (firstValue, secondValue, key) => (!_.isEqual(firstValue[key], secondValue[key])),
     buildLeaf: (firstValue, secondValue) => ({ type: 'changed', oldValue: firstValue, newValue: secondValue }),
   },
 
   {
-    check: (firstValue, secondValue, key) => !_.has(firstValue, key) && _.has(secondValue, key),
-    buildLeaf: (_firstValue, secondValue) => ({ type: 'added', value: secondValue }),
-  },
-
-  {
-    check: (firstValue, secondValue, key) => _.has(firstValue, key) && _.has(secondValue, key)
-      && firstValue[key] === secondValue[key],
+    check: () => true,
     buildLeaf: (firstValue) => ({ type: 'unchanged', value: firstValue }),
   },
 ];
