@@ -1,11 +1,11 @@
 #!/usr/bin/env  node
 import program from 'commander';
 import gendiff from '../src/index.js';
-// import
+import pkg from '../package.json';
 
 program
-  .version('1.0.0', '-v, --VERSION', 'new version message')
-  .description('Compares two configuration files and shows a difference.')
+  .version(`${pkg.version}`, '-v, --VERSION', 'new version message')
+  .description(`${pkg.description}`)
   .arguments('<firstConfig> <secondConfig>')
   .option('-f, --format [type]', 'output format', 'pretty')
   .action((firstPathToFile, secondPathToFile) => {
